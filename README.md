@@ -1,5 +1,7 @@
 # Contract Testing Demo (Pact + Node.js)
 
+<img width="1536" height="1024" alt="Image" src="https://github.com/user-attachments/assets/4d874b9b-e1f2-4236-96e2-22e85ba4e508" />
+
 Tiny, real-world example of **consumer-driven contract testing** with [Pact].  
 Two folders:
 
