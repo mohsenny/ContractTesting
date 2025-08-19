@@ -1,0 +1,13 @@
+{
+  "name": "mobile-consumer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "test": "rm -rf pacts/**.* && node order-status.pact.test.js"
+  },
+  "dependencies": {
+    "@pact-foundation/pact": "^12.3.0",
+    "node-fetch": "^2.6.9"
+  }
+}

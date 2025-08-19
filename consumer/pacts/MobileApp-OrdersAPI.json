@@ -1,0 +1,122 @@
+{
+  "consumer": {
+    "name": "MobileApp"
+  },
+  "interactions": [
+    {
+      "description": "a request for order 42",
+      "providerStates": [
+        {
+          "name": "order 42 exists with status SHIPPED"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/orders/42"
+      },
+      "response": {
+        "body": {
+          "eta": "2025-08-20T12:00:00Z",
+          "id": "42",
+          "status": "SHIPPED"
+        },
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "matchingRules": {
+          "body": {
+            "$.eta": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": ".+"
+                }
+              ]
+            },
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application\\/json.*"
+                }
+              ]
+            }
+          },
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request for a missing order",
+      "providerStates": [
+        {
+          "name": "no order with id 999 exists"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/orders/999"
+      },
+      "response": {
+        "body": {
+          "error": "ORDER_NOT_FOUND",
+          "message": "not found"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.error": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.message": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "include",
+                  "value": "not found"
+                }
+              ]
+            }
+          },
+          "status": {}
+        },
+        "status": 404
+      }
+    }
+  ],
+  "metadata": {
+    "pact-js": {
+      "version": "12.5.2"
+    },
+    "pactRust": {
+      "ffi": "0.4.20",
+      "models": "1.2.0"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "OrdersAPI"
+  }
+}
